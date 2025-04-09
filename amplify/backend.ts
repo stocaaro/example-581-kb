@@ -21,10 +21,11 @@ const KnowledgeBaseDataSource =
     },
   );
 
+// Using wildcard for knowledge base ID - replace with specific ID when ready for production
 KnowledgeBaseDataSource.grantPrincipal.addToPrincipalPolicy(
   new PolicyStatement({
     resources: [
-      `arn:aws:bedrock:${cdk.Stack.of(backend.data).region}:[account ID]:knowledge-base/[knowledge base ID]`
+      `arn:aws:bedrock:${cdk.Stack.of(backend.data).region}:${cdk.Stack.of(backend.data).account}:knowledge-base/*`
     ],
     actions: ["bedrock:Retrieve"],
   }),
