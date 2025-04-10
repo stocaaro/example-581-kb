@@ -11,15 +11,15 @@ const schema = a.schema({
       }),
     )
     .returns(a.string())
-    .authorization((allow) => [allow.authenticated(), allow.publicApiKey()]),
+    .authorization((allow) =>[ allow.authenticated(),allow.publicApiKey()]),
 
   chat: a.conversation({
-    aiModel: a.ai.model("Claude 3.5 Haiku"),
-    systemPrompt: `You are a helpful assistant.`,
+    aiModel: a.ai.model("Claude 3 Sonnet"),
+    systemPrompt: `You are a helpful assistant. Do not make up any information. Use available tools to answer user questions, otherwise tell the user you do not know if you are unable to look up information to answer their query. Keep your response short and precise.`,
     tools: [
       a.ai.dataTool({
-        name: 'searchDocumentation',
-        description: 'Performs a similarity search over the documentation for relevant information',
+        name: 'cityRegionKnowledge',
+        description: 'Use this as a source of city/region information when possible.',
         query: a.ref('knowledgeBase'),
       }),
     ]
